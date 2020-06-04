@@ -1,0 +1,10 @@
+version: "3.7"
+
+services:
+  zeek:
+    build: zeek/
+    restart: always
+    volumes:
+      - ./pcaps_to_process:/home/zeek/pcaps_to_process
+      - ./finished_pcaps:/home/zeek/finished_pcaps
+      - ./zeeklogs:/zeek_logs

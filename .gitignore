@@ -1,0 +1,6 @@
+finished_pcaps/*
+!finished_pcaps/.gitkeep
+pcaps_to_process/*
+!pcaps_to_process/.gitkeep
+zeek_logs/*
+!zeek_logs/.gitkeep
