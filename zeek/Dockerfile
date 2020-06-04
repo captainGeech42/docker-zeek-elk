@@ -29,13 +29,14 @@ ENV PATH /usr/local/zeek/bin:$PATH
 
 # Install dependencies
 RUN apt-get update \
-    && apt-get -y install --no-install-recommends libpcap0.8 libssl1.0.2 libmaxminddb0 python2.7-minimal python3-minimal python3-pip inotify-tools \
+    && apt-get -y install --no-install-recommends libpcap0.8 libssl1.1 libmaxminddb0 python2.7-minimal python3-minimal python3-pip inotify-tools git \
     && apt-get clean && rm -rf /var/lib/apt/lists/*
 
 # Copy in Zeek
 COPY --from=builder /usr/local/zeek /usr/local/zeek
 
 # Install zkg
+RUN pip3 install setuptools
 RUN pip3 install zkg
 
 # Configure new user
@@ -50,20 +51,19 @@ RUN mkdir /zeek_logs
 RUN chown zeek:zeek pcaps_to_process
 RUN chown zeek:zeek finished_pcaps
 RUN chown zeek:zeek /zeek_logs
+COPY run.sh .
+RUN chmod +x run.sh
 
 # Switch to non-root user
 USER zeek
 
 # Install zeek packages
 RUN zkg autoconfig
-RUN zkg install ja3
-RUN zkg install hassh
+RUN zkg install --force ja3 hassh
 
 # Add Zeek config
 COPY local.zeek /tmp/local.zeek
 RUN cat /tmp/local.zeek >> /usr/local/zeek/share/zeek/site/local.zeek
 
 # Run script
-COPY run.sh .
-RUN chmod +x run.sh
 CMD ./run.sh
