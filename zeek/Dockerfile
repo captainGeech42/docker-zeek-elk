@@ -47,10 +47,10 @@ RUN chown -R zeek:zeek /usr/local/zeek
 WORKDIR /home/zeek
 RUN mkdir pcaps_to_process
 RUN mkdir finished_pcaps
-RUN mkdir /zeek_logs
+RUN mkdir zeek_logs
 RUN chown zeek:zeek pcaps_to_process
 RUN chown zeek:zeek finished_pcaps
-RUN chown zeek:zeek /zeek_logs
+RUN chown zeek:zeek zeek_logs
 COPY run.sh .
 RUN chmod +x run.sh
 

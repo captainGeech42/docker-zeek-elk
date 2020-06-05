@@ -7,4 +7,4 @@ services:
     volumes:
       - ./pcaps_to_process:/home/zeek/pcaps_to_process
       - ./finished_pcaps:/home/zeek/finished_pcaps
-      - ./zeeklogs:/zeek_logs
+      - ./zeek_logs:/home/zeek/zeek_logs

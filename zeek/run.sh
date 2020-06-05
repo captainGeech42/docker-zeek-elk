@@ -8,9 +8,9 @@ function log() {
 
 INDIR=$HOME/pcaps_to_process
 OUTDIR=$HOME/finished_pcaps
-LOGDIR=/zeek_logs
+LOGDIR=$HOME/zeek_logs
 
-inotify -m -e create -e moved_to --format "%f" $INDIR/ | while read FILENAME; do
+inotifywait -m -e create -e moved_to --format "%f" $INDIR/ | while read FILENAME; do
     log "Got a new PCAP: $FILENAME"
 
     # make sure PCAP doesn't get double processed
@@ -26,12 +26,13 @@ inotify -m -e create -e moved_to --format "%f" $INDIR/ | while read FILENAME; do
     log "Zeek finished processing PCAP"
 
     # copy logs
-    mkdir "$LOGDIR/$FILENAME"
+    pcaplogdir="$LOGDIR/${FILENAME}_$(date +'%Y%m%d_%H%M%S')"
+    mkdir "$pcaplogdir"
     for log in $(ls); do
-        cat $log >> "$LOGDIR/$FILENAME/$log"
+        cat $log >> "$pcaplogdir/$log"
     done
 
-    log "Logs transferred to $LOGDIR/$FILENAME/$log"
+    log "Logs transferred to $pcaplogdir"
 
     # clean up
     cd
