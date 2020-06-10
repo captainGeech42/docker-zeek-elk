@@ -6,15 +6,11 @@ function log() {
     echo "$(date -Iseconds) $1"
 }
 
-INDIR=$HOME/pcaps_to_process
-OUTDIR=$HOME/finished_pcaps
-LOGDIR=$HOME/zeek_logs
-
-inotifywait -m -e create -e moved_to --format "%f" $INDIR/ | while read FILENAME; do
+inotifywait -m -e create -e moved_to --format "%f" $ZEEK_INDIR/ | while read FILENAME; do
     log "Got a new PCAP: $FILENAME"
 
     # make sure PCAP doesn't get double processed
-    mv "$INDIR/$FILENAME" "$OUTDIR/$FILENAME"
+    mv "$ZEEK_INDIR/$FILENAME" "$ZEEK_OUTDIR/$FILENAME"
     
     # run Zeek
     # unfortunately Zeek will overwrite log files instead of appending, so
@@ -22,11 +18,11 @@ inotifywait -m -e create -e moved_to --format "%f" $INDIR/ | while read FILENAME
     # watch directory
     tmpdir=$(mktemp -d)
     cd $tmpdir
-    zeek -C -r "$OUTDIR/$FILENAME" /usr/local/zeek/share/zeek/site/local.zeek
+    zeek -C -r "$ZEEK_OUTDIR/$FILENAME" /usr/local/zeek/share/zeek/site/local.zeek
     log "Zeek finished processing PCAP"
 
     # copy logs
-    pcaplogdir="$LOGDIR/${FILENAME}_$(date +'%Y%m%d_%H%M%S')"
+    pcaplogdir="$ZEEK_LOGDIR/${FILENAME}_$(date +'%Y%m%d_%H%M%S')"
     mkdir "$pcaplogdir"
     for log in $(ls); do
         cat $log >> "$pcaplogdir/$log"

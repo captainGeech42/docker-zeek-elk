@@ -2,9 +2,56 @@ version: "3.7"
 
 services:
   zeek:
-    build: zeek/
+    build:
+      context: zeek/
+      args:
+        ZEEK_INDIR: ${ZEEK_INDIR}
+        ZEEK_OUTDIR: ${ZEEK_OUTDIR}
+        ZEEK_LOGDIR: ${ZEEK_LOGDIR}
     restart: always
     volumes:
-      - ./pcaps_to_process:/home/zeek/pcaps_to_process
-      - ./finished_pcaps:/home/zeek/finished_pcaps
-      - ./zeek_logs:/home/zeek/zeek_logs
+      - ./pcaps_to_process:${ZEEK_INDIR}
+      - ./finished_pcaps:${ZEEK_OUTDIR}
+      - ./zeek_logs:${ZEEK_LOGDIR}
+
+  filebeat:
+    build: filebeat/
+    restart: always
+    volumes:
+      - ./zeek_logs:/zeek_logs
+    depends_on: 
+      - elasticsearch
+
+  elasticsearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch:7.7.1
+    environment:
+      - discovery.seed_hosts=elasticsearch
+      - node.name=elasticsearch
+      - cluster.initial_master_nodes=elasticsearch
+      - bootstrap.memory_lock=true
+      - "ES_JAVA_OPTS=-Xms1024m -Xmx1024m"
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+    restart: always
+    volumes:
+      - esdata:/usr/share/elasticsearch/data
+    ports:
+      - 9200:9200
+    # forces other containers to wait until the process has started, rather than the container coming up
+    # https://github.com/elastic/examples/blob/master/Miscellaneous/docker/full_stack_example/docker-compose-linux.yml#L42
+    healthcheck:
+      test: ["CMD", "curl","-s" ,"-f", "http://localhost:9200/_cat/health"]
+  
+  kibana:
+    image: docker.elastic.co/kibana/kibana:7.7.1
+    restart: always
+    depends_on: 
+      - elasticsearch
+    ports:
+      - 5601:5601
+
+volumes:
+  esdata:
+    name: zeek-elk-esdata

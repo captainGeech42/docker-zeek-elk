@@ -1,0 +1,100 @@
+- module: zeek
+  connection:
+    enabled: true
+    var.paths: ["/zeek_logs/*/conn.log"]
+  dce_rpc:                                                                                                                                                                                                                                                                                                                     
+    enabled: true                                                                                                                                                                                                                                                                                                              
+    var.paths: ["/zeek_logs/*/dce_rpc.log"]
+  dhcp:                                                                                                                                                                                                                                                                                                                        
+    enabled: true                                                                                                                                                                                                                                                                                                              
+    var.paths: ["/zeek_logs/*/dhcp.log"]
+  dnp3:                                                                                                                                                                                                                                                                                                                        
+    enabled: true                                                                                                                                                                                                                                                                                                              
+    var.paths: ["/zeek_logs/*/dnp3.log"]
+  dns:                                                                                                                                                                                                                                                                                                                         
+    enabled: true                                                                                                                                                                                                                                                                                                              
+    var.paths: ["/zeek_logs/*/dns.log"]
+  dpd:                                                                                                                                                                                                                                                                                                                         
+    enabled: true                                                                                                                                                                                                                                                                                                              
+    var.paths: ["/zeek_logs/*/dpd.log"]
+  files:                                                                                                                                                                                                                                                                                                                       
+    enabled: true                                                                                                                                                                                                                                                                                                              
+    var.paths: ["/zeek_logs/*/files.log"]
+  ftp:                                                                                                                                                                                                                                                                                                                         
+    enabled: true                                                                                                                                                                                                                                                                                                              
+    var.paths: ["/zeek_logs/*/ftp.log"]
+  http:                                                                                                                                                                                                                                                                                                                        
+    enabled: true                                                                                                                                                                                                                                                                                                              
+    var.paths: ["/zeek_logs/*/http.log"]
+  irc:                                                                                                                                                                                                                                                                                                                         
+    enabled: true                                                                                                                                                                                                                                                                                                              
+    var.paths: ["/zeek_logs/*/irc.log"]
+  kerberos:                                                                                                                                                                                                                                                                                                                    
+    enabled: true                                                                                                                                                                                                                                                                                                              
+    var.paths: ["/zeek_logs/*/kerberos.log"]
+  modbus:                                                                                                                                                                                                                                                                                                                      
+    enabled: true
+    var.paths: ["/zeek_logs/*/modbus.log"]
+  mysql:
+    enabled: true
+    var.paths: ["/zeek_logs/*/mysql.log"]
+  notice:
+    enabled: true
+    var.paths: ["/zeek_logs/*/notice.log"]
+  ntlm:
+    enabled: true
+    var.paths: ["/zeek_logs/*/ntlm.log"]
+  ocsp:
+    enabled: true
+    var.paths: ["/zeek_logs/*/ocsp.log"]
+  pe:
+    enabled: true
+    var.paths: ["/zeek_logs/*/pe.log"]
+  radius:
+    enabled: true
+    var.paths: ["/zeek_logs/*/radius.log"]
+  rdp:
+    enabled: true
+    var.paths: ["/zeek_logs/*/rdp.log"]
+  rfb:
+    enabled: true
+    var.paths: ["/zeek_logs/*/rfb.log"]
+  sip:
+    enabled: true
+    var.paths: ["/zeek_logs/*/sip.log"]
+  smb_cmd:
+    enabled: true
+    var.paths: ["/zeek_logs/*/smb_cmd.log"]
+  smb_files:
+    enabled: true
+    var.paths: ["/zeek_logs/*/smb_files.log"]
+  smb_mapping:
+    enabled: true
+    var.paths: ["/zeek_logs/*/smb_mapping.log"]
+  smtp:
+    enabled: true
+    var.paths: ["/zeek_logs/*/smtp.log"]
+  snmp:
+    enabled: true
+    var.paths: ["/zeek_logs/*/smtp.log"]
+  socks:
+    enabled: true
+    var.paths: ["/zeek_logs/*/socks.log"]
+  ssh:
+    enabled: true
+    var.paths: ["/zeek_logs/*/ssh.log"]
+  ssl:
+    enabled: true
+    var.paths: ["/zeek_logs/*/ssl.log"]
+  syslog:
+    enabled: true
+    var.paths: ["/zeek_logs/*/syslog.log"]
+  tunnel:
+    enabled: true
+    var.paths: ["/zeek_logs/*/tunnel.log"]
+  weird:
+    enabled: true
+    var.paths: ["/zeek_logs/*/weird.log"]
+  x509:
+    enabled: true
+    var.paths: ["/zeek_logs/*/x509.log"]

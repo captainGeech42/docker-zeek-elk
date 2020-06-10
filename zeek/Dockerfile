@@ -45,12 +45,18 @@ RUN chown -R zeek:zeek /usr/local/zeek
 
 # Setup directories for PCAP processing
 WORKDIR /home/zeek
-RUN mkdir pcaps_to_process
-RUN mkdir finished_pcaps
-RUN mkdir zeek_logs
-RUN chown zeek:zeek pcaps_to_process
-RUN chown zeek:zeek finished_pcaps
-RUN chown zeek:zeek zeek_logs
+ARG ZEEK_INDIR
+ARG ZEEK_OUTDIR
+ARG ZEEK_LOGDIR
+ENV ZEEK_INDIR=${ZEEK_INDIR}
+ENV ZEEK_OUTDIR=${ZEEK_OUTDIR}
+ENV ZEEK_LOGDIR=${ZEEK_LOGDIR}
+RUN mkdir ${ZEEK_INDIR}
+RUN mkdir ${ZEEK_OUTDIR}
+RUN mkdir ${ZEEK_LOGDIR}
+RUN chown zeek:zeek ${ZEEK_INDIR}
+RUN chown zeek:zeek ${ZEEK_OUTDIR}
+RUN chown zeek:zeek ${ZEEK_LOGDIR}
 COPY run.sh .
 RUN chmod +x run.sh
 
