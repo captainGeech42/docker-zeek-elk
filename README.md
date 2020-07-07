@@ -6,7 +6,7 @@ Final project for CS 312 Linux Sysadmin (Spring 2020) at Oregon State University
 Make sure to set `max_map_count` properly:
 ```
 sysctl -w vm.max_map_count=262144
-echo "vm.max_map_count" >> /etc/sysctl.conf
+echo "vm.max_map_count=262144" >> /etc/sysctl.conf
 ```
 
 This must be done on the host, not in the Elasticsearch container
