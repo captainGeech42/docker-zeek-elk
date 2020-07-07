@@ -3,6 +3,8 @@ Final project for CS 312 Linux Sysadmin (Spring 2020) at Oregon State University
 
 ## Usage
 
+(run all of these commands with `sudo` or as root)
+
 Make sure to set `max_map_count` properly:
 ```
 sysctl -w vm.max_map_count=262144
@@ -13,8 +15,8 @@ This must be done on the host, not in the Elasticsearch container
 
 Then, start the containers. Be aware that Zeek takes a _long_ time to compile (it's worth it though!)
 ```
-docker-compose build
-docker-compose up -d
+chmod +x start.sh
+./start.sh
 ```
 
 ES will be bound to tcp/9200, and Kibana will be bound to tcp/5601
