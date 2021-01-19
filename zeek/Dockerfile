@@ -64,7 +64,7 @@ RUN chmod +x run.sh
 USER zeek
 
 # Install zeek packages
-RUN zkg autoconfig
+RUN echo | zkg autoconfig
 RUN zkg install --force ja3 hassh
 
 # Add Zeek config
