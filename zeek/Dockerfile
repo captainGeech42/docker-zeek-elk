@@ -8,7 +8,7 @@ FROM debian:buster AS builder
 
 # Install dependencies
 RUN apt-get update && apt-get upgrade -y
-RUN apt-get -y install cmake make gcc g++ flex bison libpcap-dev libssl-dev python-dev swig zlib1g-dev git
+RUN apt-get -y install cmake make gcc g++ flex bison libpcap-dev libssl-dev python3-dev python-dev swig zlib1g-dev git
 
 # Checkout Zeek
 WORKDIR /tmp/build
@@ -64,7 +64,7 @@ RUN chmod +x run.sh
 USER zeek
 
 # Install zeek packages
-RUN zkg autoconfig
+RUN echo | zkg autoconfig
 RUN zkg install --force ja3 hassh
 
 # Add Zeek config
